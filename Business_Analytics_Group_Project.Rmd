@@ -231,7 +231,6 @@ Churn_Train$churn<- as.factor(Churn_Train$churn)
 
 ## 3.Validating the structure of the Churn_Train data
 str(Churn_Train)
-
 ```
 
 ## Choice of Models:
@@ -262,6 +261,8 @@ train_data<- Churn_Train[partition,]
 validation_data<- Churn_Train[-partition,]
 
 ```
+
+
 #### Building Decision tree model: 
 
 ```{r}
@@ -285,7 +286,6 @@ table(pred_tree)
 ```{r}
 #confusion matrix
 confusionMatrix(pred_tree,validation_data$churn) ## without states
-
 ```
 
 
@@ -301,7 +301,7 @@ Logistic_Model <- glm(churn ~ .,family=binomial(link="logit"),data=train_data[,-
 summary(Logistic_Model)
 
 ## Predicting churn results based on the logistic model
-predict_validation<-predict(Logistic_Model,newdata = validation_data,type='response')
+predict_validation<-predict(Logistic_Model, newdata = validation_data,type='response')
 
 ## Categorizing the result based on the cutoff value(0.5)
 resultcheck<-ifelse(predict_validation>0.5,1,0)
