@@ -29,7 +29,7 @@ library(stats) # for the step-wise search.
 library(rpart) # for decision tree
 library(rpart.plot) #for decision tree
 library(mice) # for Imputation for NA values
-
+library(VIM) # for plotting the amount of missing values
 ```
 
 #### **Loading and Reading the Dataset**  
@@ -68,6 +68,15 @@ sapply(Customers_To_Predict, function(x) sum(is.na(x))) # Shows the no NA data
 ```
 
 Our test dataset does not have any missing values.
+
+```{r}
+md.pattern(Churn_Train,rotate.names = TRUE) # See the missing value pattern
+# Plot the missing values
+
+aggr(Churn_Train, col = mdc(1:2), numbers = TRUE, sortVars = TRUE, labels = names(Churn_Train), cex.axis = .7, gap = 3, ylab = c("Proportion of Missingness", "Missing Pattern"))
+```
+
+
 
 **Imputation Method Discussion**
 We have decided to use the mice::mice() function to impute the NA values. The reason we choose this function is because it creates multiple imputations as compared to single imputations (such as using the mean) which, we believe, will lead to better imputation values.
